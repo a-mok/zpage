@@ -47,7 +47,10 @@ add file **zenx.config.zon** in your project folder
 >
 > ```bash
 > .{
->    .port = 8080,
+>    .server = .{
+>        .port = 3000,
+>        .address = "127.0.0.1",
+>    },
 >    .paths = .{
 >        .pages = "src/pages",
 >        .components = "src/components",
