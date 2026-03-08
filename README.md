@@ -77,7 +77,7 @@ pub fn main() !void {
     const html = try app.Page(200, "index", &.{
             .{ .key = "title", .value = "Welcome to Zpage!" },
             .{ .key = "content", .value = "This is a sample page rendered with Zpage." },
-      
+    
     });
 
     std.debug.print("{s}\n", .{html});

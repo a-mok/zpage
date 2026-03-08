@@ -1,12 +1,12 @@
 const std = @import("std");
 const types = @import("types.zig");
 const render = @import("render.zig");
-const config = @import("config.zig").config;
+const Config = @import("config.zig").Config;
 
 pub const Zpage = struct {
     allocator: std.mem.Allocator,
     config_zon: ?types.config_zon = null,
-    config: config,
+    config: Config,
     component_cache: render.ComponentCache,
 
     pub const pageTypes = types.Page;
@@ -28,8 +28,8 @@ pub const Zpage = struct {
     }
 
     pub fn deinit(self: *Self) void {
-        if (self.config_zon) |cfg| {
-            std.zon.parse.free(self.allocator, cfg);
+        if (self.config_zon) |config| {
+            std.zon.parse.free(self.allocator, config);
             self.config_zon = null;
         }
 
@@ -38,8 +38,8 @@ pub const Zpage = struct {
     }
 
     pub fn Page(self: *Self, status: u16, page: []const u8, data: []const types.Data) ![]const u8 {
-        const cfg = self.config_zon.?;
-        const paths = cfg.paths;
+        const config = self.config_zon.?;
+        const paths = config.paths;
 
         const status_str = try std.fmt.allocPrint(self.allocator, "{d}", .{status});
         defer self.allocator.free(status_str);
